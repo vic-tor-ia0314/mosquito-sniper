@@ -15,10 +15,10 @@ async def main():
     class Alien:
         def __init__(self, x, y):
             self.image = pygame.image.load("mosquito1.webp").convert_alpha()
-            self.image = pygame.transform.scale(self.image, (30, 20))
+            self.image = pygame.transform.scale(self.image, (70, 40))
 
             self.dead_image = pygame.image.load("mosquito2.webp").convert_alpha()
-            self.dead_image = pygame.transform.scale(self.dead_image, (30, 20))
+            self.dead_image = pygame.transform.scale(self.dead_image, (70, 40))
 
             self.rect = self.image.get_rect(topleft=(x, y))
             self.dead = False
@@ -34,7 +34,7 @@ async def main():
 
         def update(self):
             if self.dead:
-                if pygame.time.get_ticks() - self.dead_time >= 1500:
+                if pygame.time.get_ticks() - self.dead_time >= 500:
                     return True
 
             return False
