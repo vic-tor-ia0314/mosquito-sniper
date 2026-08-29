@@ -46,6 +46,8 @@ async def main():
     alien_speed = 2
     alien_direction = 1
     score = 0
+    level = 1
+    level_goal = level * 10
 
     font = pygame.font.Font(None, 30)
     title_font = pygame.font.Font(None, 60)
@@ -108,7 +110,7 @@ async def main():
                 player.x -= 5
             if keys[K_RIGHT] or keys[K_d]:
                 player.x += 5
-                
+
             player.clamp_ip(screen.get_rect())
 
             hit_edge = False
@@ -143,7 +145,10 @@ async def main():
                         bullets.remove(bullet)
                         aliens.remove(alien)
                         score += 1
+                        if score >= level * 10 and level < 5:
+                            level += 1
                         break
+
 
             screen.fill((0, 0, 0))
 
@@ -165,10 +170,15 @@ async def main():
                 (255, 255, 255)
             )
 
-            screen.blit(
-                score_text,
-                (10, 10)
+            level_text = font.render(
+                f"Level: {level}",
+                True,
+                (255, 255, 255)
             )
+
+            screen.blit(level_text, (10, 40))
+
+            screen.blit(score_text, (10, 10))
 
         pygame.display.flip()
         clock.tick(60)
