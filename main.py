@@ -77,16 +77,16 @@ async def main():
             screen.blit(self.image, self.rect)
 
     class Lollipop:
-            def __init__(self, x, y):
-                self.image = pygame.image.load("lollipop.webp").convert_alpha()
-                self.image = pygame.transform.scale(self.image, (25, 40))
-                self.rect = self.image.get_rect(center=(x, y))
+        def __init__(self, x, y):
+            self.image = pygame.image.load("lollipop.webp").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (25, 40))
+            self.rect = self.image.get_rect(center=(x, y))
     
-            def move(self):
-                self.rect.y -= 8
+        def move(self):
+            self.rect.y -= 8
     
-            def draw(self):
-                screen.blit(self.image, self.rect)
+        def draw(self):
+            screen.blit(self.image, self.rect)
     
 
     def create_aliens():
