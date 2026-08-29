@@ -12,6 +12,9 @@ async def main():
     pygame.display.set_caption("Mosquito Shooter")
     clock = pygame.time.Clock()
 
+    background = pygame.image.load("background.png").convert()
+    background = pygame.transform.scale(background, (S_WIDTH, S_HEIGHT))
+
     class Alien:
         def __init__(self, x, y):
             self.image = pygame.image.load("mosquito1.webp").convert_alpha()
@@ -101,7 +104,7 @@ async def main():
     lollipops = []
 
     player_image = pygame.image.load("solietta.webp").convert_alpha()
-    player_image = pygame.transform.scale(player_image, (100, 125))
+    player_image = pygame.transform.scale(player_image, (120, 140))
 
     player = player_image.get_rect(center=(S_WIDTH // 2, S_HEIGHT - 40))
 
@@ -193,12 +196,12 @@ async def main():
 
         elif status == "tut":
 
-            screen.fill((0, 0, 0))
+            screen.blit(background, (0, 0))
 
             text = font.render(
             tut[tut_index],
                 True,
-                (255, 255, 255)
+                (0, 0, 0)
             )
 
             screen.blit(
@@ -337,7 +340,7 @@ async def main():
                 alien_speed += 0.5
                 alien_direction = 1
 
-            screen.fill((0, 0, 0))
+            screen.blit(background, (0, 0))
 
             for alien in aliens:
                 alien.draw()
