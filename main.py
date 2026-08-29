@@ -48,86 +48,132 @@ async def main():
     score = 0
 
     font = pygame.font.Font(None, 30)
+    title_font = pygame.font.Font(None, 60)
 
     running = True
 
     while running:
+
         for event in pygame.event.get():
+
             if event.type == QUIT:
                 running = False
 
-            if event.type == KEYDOWN:
+            elif event.type == KEYDOWN:
+
                 if event.key == K_ESCAPE:
                     running = False
+
                 elif event.key == K_RETURN and status == "title":
                     status = "game"
+
                 elif event.key == K_SPACE and status == "game":
                     bullets.append(
                         Bullet(player.centerx - 2, player.top)
                     )
 
-        keys = pygame.key.get_pressed()
+        if status == "title":
 
-        if keys[K_LEFT] or keys[K_a]:
-            player.x -= 5
+            screen.fill((0, 0, 0))
 
-        if keys[K_RIGHT] or keys[K_d]:
-            player.x += 5
+            title = title_font.render(
+                "Mosquito Shooter",
+                True,
+                (255, 255, 255)
+            )
 
-        player.clamp_ip(screen.get_rect())
+            instructions = font.render(
+                "Press ENTER to start",
+                True,
+                (255, 255, 255)
+            )
 
-        hit_edge = False
+            screen.blit(
+                title,
+                title.get_rect(
+                    center=(S_WIDTH // 2, 250)
+                )
+            )
 
-        for alien in aliens:
-            if alien.rect.right >= S_WIDTH - 20:
-                hit_edge = True
-            if alien.rect.left <= 20:
-                hit_edge = True
+            screen.blit(
+                instructions,
+                instructions.get_rect(
+                    center=(S_WIDTH // 2, 330)
+                )
+            )
 
-        if hit_edge:
-            alien_direction *= -1
+        elif status == "game":
+            keys = pygame.key.get_pressed()
+            if keys[K_LEFT] or keys[K_a]:
+                player.x -= 5
+            if keys[K_RIGHT] or keys[K_d]:
+                player.x += 5
+                
+            player.clamp_ip(screen.get_rect())
 
-        for alien in aliens:
-            alien.move(alien_speed * alien_direction)
+            hit_edge = False
 
-        for bullet in bullets[:]:
-            bullet.move()
+            for alien in aliens:
 
-            if bullet.rect.bottom < 0:
-                bullets.remove(bullet)
+                if alien.rect.right >= S_WIDTH - 20 and alien_direction > 0:
+                    hit_edge = True
 
-        for bullet in bullets[:]:
-            for alien in aliens[:]:
-                if bullet.rect.colliderect(alien.rect):
+                if alien.rect.left <= 20 and alien_direction < 0:
+                    hit_edge = True
+
+            if hit_edge:
+                alien_direction *= -1
+
+            for alien in aliens:
+                alien.move(alien_speed * alien_direction)
+
+            for bullet in bullets[:]:
+
+                bullet.move()
+
+                if bullet.rect.bottom < 0:
                     bullets.remove(bullet)
-                    aliens.remove(alien)
-                    score += 1
-                    break
 
-        screen.fill((0, 0, 0))
+            for bullet in bullets[:]:
 
-        for alien in aliens:
-            alien.draw()
+                for alien in aliens[:]:
 
-        for bullet in bullets:
-            bullet.draw()
+                    if bullet.rect.colliderect(alien.rect):
 
-        pygame.draw.rect(
-            screen,
-            (50, 255, 100),
-            player
-        )
+                        bullets.remove(bullet)
+                        aliens.remove(alien)
+                        score += 1
+                        break
 
-        score_text = font.render(
-            f"Score: {score}",
-            True,
-            (255, 255, 255)
-        )
+            screen.fill((0, 0, 0))
 
-        screen.blit(score_text, (10, 10))
+            for alien in aliens:
+                alien.draw()
+
+            for bullet in bullets:
+                bullet.draw()
+
+            pygame.draw.rect(
+                screen,
+                (50, 255, 100),
+                player
+            )
+
+            score_text = font.render(
+                f"Score: {score}",
+                True,
+                (255, 255, 255)
+            )
+
+            screen.blit(
+                score_text,
+                (10, 10)
+            )
 
         pygame.display.flip()
         clock.tick(60)
+
+        await asyncio.sleep(0)
 
     pygame.quit()
 
