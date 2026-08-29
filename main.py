@@ -15,6 +15,9 @@ async def main():
     background = pygame.image.load("background.png").convert()
     background = pygame.transform.scale(background, (S_WIDTH, S_HEIGHT))
 
+    titlebg = pygame.image.load("title.png").convert()
+    titlebg = pygame.transform.scale(titlebg, (S_WIDTH, S_HEIGHT))
+
     class Alien:
         def __init__(self, x, y):
             self.image = pygame.image.load("mosquito1.webp").convert_alpha()
@@ -166,33 +169,7 @@ async def main():
 
         if status == "title":
 
-            screen.fill((0, 0, 0))
-
-            title = title_font.render(
-                "Mosquito Shooter",
-                True,
-                (255, 255, 255)
-            )
-
-            instructions = font.render(
-                "Press ENTER to start",
-                True,
-                (255, 255, 255)
-            )
-
-            screen.blit(
-                title,
-                title.get_rect(
-                    center=(S_WIDTH // 2, 250)
-                )
-            )
-
-            screen.blit(
-                instructions,
-                instructions.get_rect(
-                    center=(S_WIDTH // 2, 330)
-                )
-            )
+            screen.blit(titlebg, (0, 0))
 
         elif status == "tut":
 
