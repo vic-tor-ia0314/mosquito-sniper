@@ -20,10 +20,10 @@ async def main():
 
     class Alien:
         def __init__(self, x, y):
-            self.image = pygame.image.load("mosquito1.webp").convert_alpha()
+            self.image = pygame.image.load("mosquito1.png").convert_alpha()
             self.image = pygame.transform.scale(self.image, (70, 40))
 
-            self.dead_image = pygame.image.load("mosquito2.webp").convert_alpha()
+            self.dead_image = pygame.image.load("mosquito2.png").convert_alpha()
             self.dead_image = pygame.transform.scale(self.dead_image, (70, 40))
 
             self.rect = self.image.get_rect(topleft=(x, y))
@@ -54,7 +54,7 @@ async def main():
 
     class Bullet:
         def __init__(self, x, y):
-            self.image = pygame.image.load("sunbeam.webp").convert_alpha()
+            self.image = pygame.image.load("sunbeam.png").convert_alpha()
             self.image = pygame.transform.scale(self.image, (15, 37))
             self.rect = self.image.get_rect(center=(x, y))
 
@@ -66,7 +66,7 @@ async def main():
 
     class RainbowBullet:
         def __init__(self, x, y):
-            self.image = pygame.image.load("rainbow.webp").convert_alpha()
+            self.image = pygame.image.load("rainbow.png").convert_alpha()
             self.image = pygame.transform.scale(self.image, (15, 35))
             self.rect = self.image.get_rect(center=(x, y))
 
@@ -78,7 +78,7 @@ async def main():
 
     class Lollipop:
         def __init__(self, x, y):
-            self.image = pygame.image.load("lollipop.webp").convert_alpha()
+            self.image = pygame.image.load("lollipop.png").convert_alpha()
             self.image = pygame.transform.scale(self.image, (25, 40))
             self.rect = self.image.get_rect(center=(x, y))
     
@@ -106,7 +106,7 @@ async def main():
     rainbow_bullets = []
     lollipops = []
 
-    player_image = pygame.image.load("solietta.webp").convert_alpha()
+    player_image = pygame.image.load("solietta.png").convert_alpha()
     player_image = pygame.transform.scale(player_image, (120, 140))
 
     player = player_image.get_rect(center=(S_WIDTH // 2, S_HEIGHT - 40))
